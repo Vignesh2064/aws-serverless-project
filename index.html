@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Input Form</title>
+  <style>
+    .form-style input {
+      width: 45%;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0px;
+    }
+    .form-style label {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    textarea {
+      width: 46%;
+      padding: 5px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    #form-button {
+      width: 10%;
+      background: green;
+      color: white;
+      border: none;
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+  </style>
+  <img src="http://newmetech.in/wp-content/uploads/2023/06/Final_logo-1.png" alt="NewMe Technology Solution" id="logo" data-height-percentage="60" data-actual-width="0" data-actual-height="0">
+
+  <h1>AWS SERVERLESS PROJECT</h1>
+  </head>
+<body>
+  <h2>Enter Student Details</h2>
+  <form id="userForm" class="form-style">
+    <label for="username">Username:</label><br />
+    <input type="text" id="username" name="username" /><br /><br />
+
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email" /><br /><br />
+
+    <label for="password">Password:</label><br />
+    <input type="password" id="password" name="password" /><br /><br />
+
+    <label for="details">Details:</label><br />
+    <textarea id="details" name="details"></textarea><br /><br />
+
+    <input id="form-button" type="submit" value="Submit" />
+  </form>
+
+  <script>
+    document.getElementById("userForm").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+
+      // Get form data
+      var formData = {
+        USERNAME: document.getElementById("username").value,
+        EMAIL: document.getElementById("email").value,
+        PASSWORD: document.getElementById("password").value,
+        DETAILS: document.getElementById("details").value,
+      };
+
+      // Convert form data to JSON
+      var jsonData = JSON.stringify(formData);
+
+      // Make a POST request to the API Gateway URL
+      // Make a POST request to the API Gateway URL
+      fetch("https://c0cwbvwkkd.execute-api.ap-south-1.amazonaws.com/Test/", {
+        method: "POST",
+        body: jsonData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        alert("Data submitted successfully!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error submitting data. Please try again later.");
+      });
+    });
+  </script>
+</body>
+</html>
